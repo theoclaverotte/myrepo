@@ -2,6 +2,9 @@
 title: "dplyr_TP3_git"
 author: "Théo Claverotte dit Laprima"
 format: html
+echo: false
+message: false
+warning: false
 ---
 
 
@@ -25,7 +28,7 @@ a2<-count(a)
 g2<-count(g)
 
 ```
-the data set contains `r s2` songs of `r a2`. It contains `r s2` songs of `r g2`different musical genders.
+the data set contains `r s2` songs of `r a2`. It contains `r s2` songs of `r g2` different musical genders.
 
 
 ## Question 2
@@ -39,6 +42,9 @@ spy<-count(songs_py, by=year)
 library(knitr)
 knitr::kable(spy)
 ```
+
+
+
 ## Question 3
 ```{r}
 artist<-spotify$artist
@@ -71,7 +77,7 @@ print(data_frame)
 
 ```{r}
 library(ggplot2)
-ggplot(data_frame) + geom_line(aes(x=year, y=nrgy, color="darkred")) + geom_line(aes(x=year, y=dnce, color="darkviolet")) + ylab("medians of the energy and danceability")
+ggplot(data_frame) + geom_line(aes(x=year, y=nrgy, color="darkred")) + geom_line(aes(x=year, y=dnce, color="darkviolet")) + ylab("medians of the energy and danceability") 
 ```
 
 # Exercise 2
