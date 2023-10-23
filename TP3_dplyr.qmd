@@ -42,8 +42,7 @@ spy<-count(songs_py, by=year)
 library(knitr)
 knitr::kable(spy)
 ```
-
-
+This table compute the number of song per year. For example in our base at the year 2000 we can assume that we have 74 songs.
 
 ## Question 3
 ```{r}
@@ -56,6 +55,8 @@ spotify %>% distinct(song, artist)%>%
 
 ```
 
+The most popular artist in the data set is Rihanna. Every song is only count once. Sha had made 23 songs. 
+
 ## Question 4
 ```{r}
 spotify %>% 
@@ -63,6 +64,10 @@ spotify %>%
   group_by(genre) %>%
   summarise(mean(tempo), min(tempo), max(tempo), median(tempo), n())
 ```
+
+
+
+
 ## Question 5
 ```{r}
 data_frame<-spotify %>% 
