@@ -28,7 +28,7 @@ a2<-count(a)
 g2<-count(g)
 
 ```
-the data set contains `r s2` songs of `r a2`. It contains `r s2` songs of `r g2` different musical genders.
+The data set contains `r s2` songs of `r a2`. It contains `r s2` songs of `r g2` different musical genders.
 
 
 ## Question 2
@@ -42,7 +42,7 @@ spy<-count(songs_py, by=year)
 library(knitr)
 knitr::kable(spy)
 ```
-This table compute the number of song per year. For example in our base at the year 2000 we can assume that we have 74 songs.
+This table computes the number of song per year. For example in our base at the year 2000 we can assume that we have 74 songs.
 
 ## Question 3
 ```{r}
@@ -65,7 +65,7 @@ spotify %>%
   summarise(mean(tempo), min(tempo), max(tempo), median(tempo), n())
 ```
 
-
+This table computes the minimum, maximum, mean and median of the BPM (here the variable tempo). It is also computing the number of songs by musical gender. For example we have 13 songs in the R&B gender, the mean tempo of this musical gender is 107. dbl, the minimum is 71.8 dbl, the maximum is 171. dbl and the median is equal to 100. dbl.
 
 
 ## Question 5
@@ -78,12 +78,15 @@ print(data_frame)
   
 ```
 
+This data frame represents the median of both energy and danceability per year. In 2000 the median of energy was 0.7720 dbl, and danceability 0.7080. 
+
 ## Question 6
 
 ```{r}
 library(ggplot2)
 ggplot(data_frame) + geom_line(aes(x=year, y=nrgy, color="darkred")) + geom_line(aes(x=year, y=dnce, color="darkviolet")) + ylab("medians of the energy and danceability") 
 ```
+The following graphic represents the temporal evolution of the median annual energy (in dark red) and of the median annual dance ability (in dark violet).
 
 # Exercise 2
 
@@ -98,6 +101,7 @@ age_median_by_g_ms <- dropout %>%
   summarise(n(), age_med=median(`Age at enrollment`))
 print(age_median_by_g_ms)
 ```
+The following data frame computes the median "Age at enrollment" conditioned both on the Gender and on the "Marital Status".
 
 ## Question 2
 ```{r}
@@ -109,6 +113,7 @@ print(Ages_median)
 library(knitr)
 knitr::kable(Ages_median)
 ```
+After the transformation of our former data frame we have created three variables : "Marital status", Female and Male. Male and female are in column, and each category of marital status is compute as a row.
 
 ## Question 3
 ```{r}
@@ -119,6 +124,8 @@ conditionnal_means<-dropout%>%
 print(conditionnal_means)
 ```
 
+We have compute the conditional mean of all variables related to "Curricular units" given the value of the Target variable.
+
 ## Question 4
 
 ```{r}
@@ -127,4 +134,4 @@ conditionnal_means_2<- conditionnal_means %>%
   pivot_wider(names_from = Target)
 knitr::kable(conditionnal_means_2)
 ```
-
+We have transformed the former data set in order to represent the three categories "Dropout", "Graduate", "enrolled" (in column) by every curricular units (in row).
