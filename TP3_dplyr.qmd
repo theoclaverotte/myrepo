@@ -1,0 +1,119 @@
+---
+title: "dplyr_TP3_git"
+author: "Théo Claverotte dit Laprima"
+format: html
+---
+
+
+```{r}
+
+library(here)
+library(dplyr)
+here::i_am("dplyr_git.Rproj")
+spotify<-readRDS("top-spotify-hits-2000-2019.Rds")
+```
+# Exercise 1
+
+## Question 1
+```{r}
+s<-spotify%>%distinct(song)
+a<-spotify%>%distinct(artist)
+g<-spotify%>%distinct(genre)
+
+s2<-count(s)
+a2<-count(a)
+g2<-count(g)
+
+```
+the data set contains `r s2` songs of `r a2`. It contains `r s2` songs of `r g2`different musical genders.
+
+
+## Question 2
+```{r}
+#songs_py = songs per year
+songs_py <- spotify %>%
+  group_by(year) %>%
+  summarise(song)
+spy<-count(songs_py, by=year)
+
+library(knitr)
+knitr::kable(spy)
+```
+## Question 3
+```{r}
+artist<-spotify$artist
+spotify %>% distinct(song, artist)%>%
+  count(artist)%>%
+  slice_max(n)
+
+#on fait group_by puis summarise ou bien count
+
+```
+
+## Question 4
+```{r}
+spotify %>% 
+  distinct(song, tempo, genre, keep_all=TRUE) %>%
+  group_by(genre) %>%
+  summarise(mean(tempo), min(tempo), max(tempo), median(tempo), n())
+```
+## Question 5
+```{r}
+data_frame<-spotify %>% 
+  distinct(year, danceability, energy) %>%
+  group_by(year) %>%
+  summarise(nrgy=median(energy), dnce=median(danceability))
+print(data_frame)
+  
+```
+
+## Question 6
+
+```{r}
+library(ggplot2)
+ggplot(data_frame) + geom_line(aes(x=year, y=nrgy, color="darkred")) + geom_line(aes(x=year, y=dnce, color="darkviolet")) + ylab("medians of the energy and danceability")
+```
+
+# Exercise 2
+
+```{r}
+dropout <-readRDS("dropout.Rds")
+```
+
+## Question 1
+```{r}
+age_median_by_g_ms <- dropout %>%
+  group_by(Gender, `Marital status`)%>%
+  summarise(n(), age_med=median(`Age at enrollment`))
+print(age_median_by_g_ms)
+```
+
+## Question 2
+```{r}
+library(tidyr)
+Ages_median <- age_median_by_g_ms %>%
+  group_by(Gender, `Marital status`) %>%
+  pivot_wider(names_from=Gender, values_from=age_med)
+print(Ages_median)
+library(knitr)
+knitr::kable(Ages_median)
+```
+
+## Question 3
+```{r}
+
+conditionnal_means<-dropout%>%
+  group_by(Target) %>%
+  summarise(across(starts_with("Curricular units"), mean))
+print(conditionnal_means)
+```
+
+## Question 4
+
+```{r}
+conditionnal_means_2<- conditionnal_means %>% 
+  pivot_longer(starts_with("Curricular units"), names_to = "Units") %>% 
+  pivot_wider(names_from = Target)
+knitr::kable(conditionnal_means_2)
+```
+
